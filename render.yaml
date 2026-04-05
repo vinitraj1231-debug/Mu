@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: telegram-music-bot
+    runtime: python
+    repo: https://github.com/YOUR_USERNAME/YOUR_REPO   # change this
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    plan: free
+
+    envVars:
+      - key: API_ID
+        sync: false
+
+      - key: API_HASH
+        sync: false
+
+      - key: BOT_TOKEN
+        sync: false
+
+      - key: SESSION_STRING
+        sync: false
+
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: music-redis
+          property: connectionString
+
+      - key: MONGO_URL
+        sync: false
+
+      - key: MONGO_DB
+        value: telegram_music_bot
+
+      - key: PORT
+        value: 10000   # required for web service
+
+  - type: redis
+    name: music-redis
+    plan: free
+    ipAllowList: []
