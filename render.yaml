@@ -2,25 +2,28 @@ services:
   - type: web
     name: telegram-music-bot
     runtime: python
-    repo: https://github.com/vinitraj1231-debug/Mu.git   # change this
-    branch: main
     buildCommand: pip install -r requirements.txt
     startCommand: python main.py
     plan: free
-
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
       - key: API_ID
         sync: false
-
       - key: API_HASH
         sync: false
-
       - key: BOT_TOKEN
         sync: false
-
       - key: SESSION_STRING
         sync: false
-
+      - key: REDIS_URL
+        sync: false
+      - key: MONGO_URL
+        sync: false
+      - key: MONGO_DB
+        value: telegram_music_bot
+      - key: PORT
+        value: 10000
       - key: REDIS_URL
         fromService:
           type: redis
